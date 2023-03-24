@@ -1,0 +1,16 @@
+---
+- name: Restore plabyook.yml
+  hosts: all
+  tasks:
+    - name: Shutdown the DB service 
+      service:
+        name: mariadb
+        state: stopped
+        enabled: no
+    
+    - name: Remove the DB packages
+      yum:
+        name: 
+          - mariadb-server
+          - python3-PyMySQL
+        state: absent

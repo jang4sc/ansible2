@@ -1,0 +1,28 @@
+---
+- name: System Shutdown
+  hosts: all
+  gather_facts: no
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+  - name: shutdown system
+    command: /sbin/shutdown -h now
+
+  - name: wait go down
+    local_action: wait_for host={{ ansible_ssh_host }} port=22 state=stopped
+
+- name: Local System Shutdown
+  hosts: localhost
+  gather_facts: no
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks: 
+    - name: shutdown local system
+      at:
+        command: shutdown -h now
+        count: 3
+        units: minutes 
+
+

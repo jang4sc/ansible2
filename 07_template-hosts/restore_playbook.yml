@@ -1,0 +1,10 @@
+---
+- name: Restore playbook.yml
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Remove a file - /root/hosts  
+      file:
+        path: /root/hosts
+        state: absent
+

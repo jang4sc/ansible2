@@ -1,0 +1,13 @@
+---
+# ansible-playbook restore_createusers.yml --vault-password-file=vault-pass
+- name: Restore createuser.yml
+  hosts: all
+  vars_files:
+    - vars/secret.yml
+  tasks:
+    - name: 사용자 삭제하기
+      user: 
+        name: "{{ item.name }}"
+        state: absent
+        remove: yes
+      with_items: "{{ newusers }}"  
